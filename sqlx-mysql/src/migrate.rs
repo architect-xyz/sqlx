@@ -170,8 +170,13 @@ CREATE TABLE IF NOT EXISTS _sqlx_migrations (
     fn apply<'e: 'm, 'm>(
         &'e mut self,
         migration: &'m Migration,
+        skip_execution: bool,
     ) -> BoxFuture<'m, Result<Duration, MigrateError>> {
         Box::pin(async move {
+
+            if !skip_execution {
+                
+            }
             // Use a single transaction for the actual migration script and the essential bookeeping so we never
             // execute migrations twice. See https://github.com/launchbadge/sqlx/issues/1966.
             // The `execution_time` however can only be measured for the whole transaction. This value _only_ exists for

@@ -177,7 +177,7 @@ impl Migrator {
                     }
                 }
                 None => {
-                    conn.apply(migration).await?;
+                    conn.apply(migration, false).await?;
                 }
             }
         }

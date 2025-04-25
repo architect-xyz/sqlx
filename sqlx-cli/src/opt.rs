@@ -181,6 +181,11 @@ pub enum MigrateCommand {
         /// pending migrations. If already at the target version, then no-op.
         #[clap(long)]
         target_version: Option<i64>,
+
+        /// Updates the `_sqlx_migration` table with the source migrations but does not
+        /// execute the migration sql
+        #[clap(long)]
+        skip_migration_execution: Option<bool>
     },
 
     /// Revert the latest migration with a down file.

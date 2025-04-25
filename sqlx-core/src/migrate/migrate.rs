@@ -53,6 +53,7 @@ pub trait Migrate {
     fn apply<'e: 'm, 'm>(
         &'e mut self,
         migration: &'m Migration,
+        skip_execution: bool
     ) -> BoxFuture<'m, Result<Duration, MigrateError>>;
 
     // run a revert SQL from migration in a DDL transaction

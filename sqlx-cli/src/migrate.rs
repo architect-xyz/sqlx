@@ -277,6 +277,7 @@ pub async fn run(
     dry_run: bool,
     ignore_missing: bool,
     target_version: Option<i64>,
+    skip_migration_execution: bool,
 ) -> anyhow::Result<()> {
     let migrator = Migrator::new(Path::new(migration_source)).await?;
     if let Some(target_version) = target_version {
@@ -332,7 +333,7 @@ pub async fn run(
                 let elapsed = if dry_run || skip {
                     Duration::new(0, 0)
                 } else {
-                    conn.apply(migration).await?
+                    conn.apply(migration, skip_migration_execution).await?
                 };
                 let text = if skip {
                     "Skipped"
